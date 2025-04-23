@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aeefa162c6074299b0ba58787811b57f" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="cinemaModel.actor" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.estudio" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.genero" Width="1.5" PointX="5.625" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.nacionalidad" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="cinemaModel.FK_ACT_NAC" ManuallyRouted="false" />
+        <AssociationConnector Association="cinemaModel.FK_EST_NAC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="cinemaModel.director" Width="1.5" PointX="3" PointY="11" />
+        <AssociationConnector Association="cinemaModel.FK_DIR_NAC" />
+        <EntityTypeShape EntityType="cinemaModel.pelicula" Width="1.5" PointX="7.875" PointY="6.125" />
+        <AssociationConnector Association="cinemaModel.FK_PL_DIR" />
+        <AssociationConnector Association="cinemaModel.FK_PL_EST" />
+        <AssociationConnector Association="cinemaModel.listado_genero" />
+        <AssociationConnector Association="cinemaModel.reparto" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

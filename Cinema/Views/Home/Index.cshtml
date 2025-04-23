@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link rel="stylesheet" href="~/Content/menuStyle.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<main>    
+        <p>
+            <center> <h2>  <b> ¡Bienvenido!</b> </h2></center>
+        </p>
+
+    <div class="contenedor-menu">
+        <div class="card-menu">
+            <a href="@Url.Action("Index", "directores")" class="enlace-tarjeta">
+                <div class="overlay">
+                    <h2 class="titulo">Directores</h2>
+                </div>
+                <img src="~/Resources/directorMenu.jpg" alt="cheetah" />
+                <div class="tooltip">
+                    <p>Texto del Tooltip</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="card-menu">
+            <a href="@Url.Action("Index", "peliculas")" class="enlace-tarjeta">
+                <div class="overlay">
+                    <h2 class="titulo">Películas</h2>
+                </div>
+                <img src="~/Resources/peliculaMenu.jpg" alt="cheetah" />
+            </a>
+        </div>
+
+        <div class="card-menu">
+            <a href="@Url.Action("Index", "actores")" class="enlace-tarjeta">
+                <div class="overlay">
+                    <h2 class="titulo">Actores</h2>
+                </div>
+                <img src="~/Resources/actorMenu.jpg" alt="cheetah" />
+        </div>
+
+
+        <div class="card-menu">
+            <a href="@Url.Action("Index", "estudios")" class="enlace-tarjeta">
+                <div class="overlay">
+                    <h2 class="titulo">Estudios</h2>
+                </div>
+                <img src="~/Resources/estudioMenu.jpg" alt="cheetah" />
+        </div>
+
+    </div>
+
+</main>

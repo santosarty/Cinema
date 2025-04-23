@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cinemaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="actor">
+    <Key>
+      <PropertyRef Name="idActor" />
+    </Key>
+    <Property Name="idActor" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="genero" Type="varchar" MaxLength="50" />
+    <Property Name="idNacionalidad" Type="int" />
+    <Property Name="fechaNacimiento" Type="date" />
+  </EntityType>
+  <EntityType Name="director">
+    <Key>
+      <PropertyRef Name="idDirector" />
+    </Key>
+    <Property Name="idDirector" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="genero" Type="varchar" MaxLength="50" />
+    <Property Name="idNacionalidad" Type="int" />
+    <Property Name="fechaNacimiento" Type="date" />
+  </EntityType>
+  <EntityType Name="estudio">
+    <Key>
+      <PropertyRef Name="idEstudio" />
+    </Key>
+    <Property Name="idEstudio" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="fundacion" Type="date" />
+    <Property Name="idNacionalidad" Type="int" />
+  </EntityType>
+  <EntityType Name="genero">
+    <Key>
+      <PropertyRef Name="idGenero" />
+    </Key>
+    <Property Name="idGenero" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="listado_genero">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+      <PropertyRef Name="idGenero" />
+    </Key>
+    <Property Name="idPelicula" Type="int" Nullable="false" />
+    <Property Name="idGenero" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="nacionalidad">
+    <Key>
+      <PropertyRef Name="idNacionalidad" />
+    </Key>
+    <Property Name="idNacionalidad" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="pelicula">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+    </Key>
+    <Property Name="idPelicula" Type="int" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="50" />
+    <Property Name="fechaEstreno" Type="date" />
+    <Property Name="idDirector" Type="int" />
+    <Property Name="duracion" Type="varchar" MaxLength="50" />
+    <Property Name="idioma" Type="varchar" MaxLength="50" />
+    <Property Name="presupuesto" Type="int" />
+    <Property Name="idEstudio" Type="int" />
+  </EntityType>
+  <EntityType Name="reparto">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+      <PropertyRef Name="idActor" />
+    </Key>
+    <Property Name="idPelicula" Type="int" Nullable="false" />
+    <Property Name="idActor" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ACT_NAC">
+    <End Role="nacionalidad" Type="Self.nacionalidad" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="actor" Type="Self.actor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="actor">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DIR_NAC">
+    <End Role="nacionalidad" Type="Self.nacionalidad" Multiplicity="0..1" />
+    <End Role="director" Type="Self.director" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="director">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EST_NAC">
+    <End Role="nacionalidad" Type="Self.nacionalidad" Multiplicity="0..1" />
+    <End Role="estudio" Type="Self.estudio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="estudio">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LG_GN">
+    <End Role="genero" Type="Self.genero" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="listado_genero" Type="Self.listado_genero" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genero">
+        <PropertyRef Name="idGenero" />
+      </Principal>
+      <Dependent Role="listado_genero">
+        <PropertyRef Name="idGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LG_PL">
+    <End Role="pelicula" Type="Self.pelicula" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="listado_genero" Type="Self.listado_genero" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pelicula">
+        <PropertyRef Name="idPelicula" />
+      </Principal>
+      <Dependent Role="listado_genero">
+        <PropertyRef Name="idPelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PL_DIR">
+    <End Role="director" Type="Self.director" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="pelicula" Type="Self.pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="director">
+        <PropertyRef Name="idDirector" />
+      </Principal>
+      <Dependent Role="pelicula">
+        <PropertyRef Name="idDirector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PL_EST">
+    <End Role="estudio" Type="Self.estudio" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="pelicula" Type="Self.pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estudio">
+        <PropertyRef Name="idEstudio" />
+      </Principal>
+      <Dependent Role="pelicula">
+        <PropertyRef Name="idEstudio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RP_ACT">
+    <End Role="actor" Type="Self.actor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reparto" Type="Self.reparto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="actor">
+        <PropertyRef Name="idActor" />
+      </Principal>
+      <Dependent Role="reparto">
+        <PropertyRef Name="idActor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RP_PL">
+    <End Role="pelicula" Type="Self.pelicula" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reparto" Type="Self.reparto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pelicula">
+        <PropertyRef Name="idPelicula" />
+      </Principal>
+      <Dependent Role="reparto">
+        <PropertyRef Name="idPelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cinemaModelStoreContainer">
+    <EntitySet Name="actor" EntityType="Self.actor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="director" EntityType="Self.director" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="estudio" EntityType="Self.estudio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="genero" EntityType="Self.genero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="listado_genero" EntityType="Self.listado_genero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="nacionalidad" EntityType="Self.nacionalidad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pelicula" EntityType="Self.pelicula" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reparto" EntityType="Self.reparto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ACT_NAC" Association="Self.FK_ACT_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="actor" EntitySet="actor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DIR_NAC" Association="Self.FK_DIR_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="director" EntitySet="director" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EST_NAC" Association="Self.FK_EST_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="estudio" EntitySet="estudio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LG_GN" Association="Self.FK_LG_GN">
+      <End Role="genero" EntitySet="genero" />
+      <End Role="listado_genero" EntitySet="listado_genero" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LG_PL" Association="Self.FK_LG_PL">
+      <End Role="pelicula" EntitySet="pelicula" />
+      <End Role="listado_genero" EntitySet="listado_genero" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PL_DIR" Association="Self.FK_PL_DIR">
+      <End Role="director" EntitySet="director" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PL_EST" Association="Self.FK_PL_EST">
+      <End Role="estudio" EntitySet="estudio" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RP_ACT" Association="Self.FK_RP_ACT">
+      <End Role="actor" EntitySet="actor" />
+      <End Role="reparto" EntitySet="reparto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RP_PL" Association="Self.FK_RP_PL">
+      <End Role="pelicula" EntitySet="pelicula" />
+      <End Role="reparto" EntitySet="reparto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

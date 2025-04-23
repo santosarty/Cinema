@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cinemaModelStoreContainer" CdmEntityContainer="cinemaEntities">
+    <EntitySetMapping Name="actor">
+      <EntityTypeMapping TypeName="cinemaModel.actor">
+        <MappingFragment StoreEntitySet="actor">
+          <ScalarProperty Name="idActor" ColumnName="idActor" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="idNacionalidad" ColumnName="idNacionalidad" />
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="estudio">
+      <EntityTypeMapping TypeName="cinemaModel.estudio">
+        <MappingFragment StoreEntitySet="estudio">
+          <ScalarProperty Name="idEstudio" ColumnName="idEstudio" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="fundacion" ColumnName="fundacion" />
+          <ScalarProperty Name="idNacionalidad" ColumnName="idNacionalidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genero">
+      <EntityTypeMapping TypeName="cinemaModel.genero">
+        <MappingFragment StoreEntitySet="genero">
+          <ScalarProperty Name="idGenero" ColumnName="idGenero" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nacionalidad">
+      <EntityTypeMapping TypeName="cinemaModel.nacionalidad">
+        <MappingFragment StoreEntitySet="nacionalidad">
+          <ScalarProperty Name="idNacionalidad" ColumnName="idNacionalidad" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="director">
+      <EntityTypeMapping TypeName="cinemaModel.director">
+        <MappingFragment StoreEntitySet="director">
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+          <ScalarProperty Name="idNacionalidad" ColumnName="idNacionalidad" />
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idDirector" ColumnName="idDirector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pelicula">
+      <EntityTypeMapping TypeName="cinemaModel.pelicula">
+        <MappingFragment StoreEntitySet="pelicula">
+          <ScalarProperty Name="idEstudio" ColumnName="idEstudio" />
+          <ScalarProperty Name="presupuesto" ColumnName="presupuesto" />
+          <ScalarProperty Name="idioma" ColumnName="idioma" />
+          <ScalarProperty Name="duracion" ColumnName="duracion" />
+          <ScalarProperty Name="idDirector" ColumnName="idDirector" />
+          <ScalarProperty Name="fechaEstreno" ColumnName="fechaEstreno" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="listado_genero" TypeName="cinemaModel.listado_genero" StoreEntitySet="listado_genero">
+      <EndProperty Name="pelicula">
+        <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+      </EndProperty>
+      <EndProperty Name="genero">
+        <ScalarProperty Name="idGenero" ColumnName="idGenero" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="reparto" TypeName="cinemaModel.reparto" StoreEntitySet="reparto">
+      <EndProperty Name="pelicula">
+        <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+      </EndProperty>
+      <EndProperty Name="actor">
+        <ScalarProperty Name="idActor" ColumnName="idActor" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

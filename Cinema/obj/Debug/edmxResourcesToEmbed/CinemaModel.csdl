@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cinemaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="actor">
+    <Key>
+      <PropertyRef Name="idActor" />
+    </Key>
+    <Property Name="idActor" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idNacionalidad" Type="Int32" />
+    <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="nacionalidad" Relationship="Self.FK_ACT_NAC" FromRole="actor" ToRole="nacionalidad" />
+    <NavigationProperty Name="pelicula" Relationship="cinemaModel.reparto" FromRole="actor" ToRole="pelicula" />
+  </EntityType>
+  <EntityType Name="estudio">
+    <Key>
+      <PropertyRef Name="idEstudio" />
+    </Key>
+    <Property Name="idEstudio" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fundacion" Type="DateTime" Precision="0" />
+    <Property Name="idNacionalidad" Type="Int32" />
+    <NavigationProperty Name="nacionalidad" Relationship="Self.FK_EST_NAC" FromRole="estudio" ToRole="nacionalidad" />
+    <NavigationProperty Name="pelicula" Relationship="cinemaModel.FK_PL_EST" FromRole="estudio" ToRole="pelicula" />
+  </EntityType>
+  <EntityType Name="genero">
+    <Key>
+      <PropertyRef Name="idGenero" />
+    </Key>
+    <Property Name="idGenero" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="pelicula" Relationship="cinemaModel.listado_genero" FromRole="genero" ToRole="pelicula" />
+  </EntityType>
+  <EntityType Name="nacionalidad">
+    <Key>
+      <PropertyRef Name="idNacionalidad" />
+    </Key>
+    <Property Name="idNacionalidad" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="actor" Relationship="Self.FK_ACT_NAC" FromRole="nacionalidad" ToRole="actor" />
+    <NavigationProperty Name="estudio" Relationship="Self.FK_EST_NAC" FromRole="nacionalidad" ToRole="estudio" />
+    <NavigationProperty Name="director" Relationship="cinemaModel.FK_DIR_NAC" FromRole="nacionalidad" ToRole="director" />
+  </EntityType>
+  <Association Name="FK_ACT_NAC">
+    <End Role="nacionalidad" Type="Self.nacionalidad" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="actor" Type="Self.actor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="actor">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EST_NAC">
+    <End Role="nacionalidad" Type="Self.nacionalidad" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="estudio" Type="Self.estudio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="estudio">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cinemaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="actor" EntityType="Self.actor" />
+    <EntitySet Name="estudio" EntityType="Self.estudio" />
+    <EntitySet Name="genero" EntityType="Self.genero" />
+    <EntitySet Name="nacionalidad" EntityType="Self.nacionalidad" />
+    <AssociationSet Name="FK_ACT_NAC" Association="Self.FK_ACT_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="actor" EntitySet="actor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EST_NAC" Association="Self.FK_EST_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="estudio" EntitySet="estudio" />
+    </AssociationSet>
+    <EntitySet Name="director" EntityType="cinemaModel.director" />
+    <AssociationSet Name="FK_DIR_NAC" Association="cinemaModel.FK_DIR_NAC">
+      <End Role="nacionalidad" EntitySet="nacionalidad" />
+      <End Role="director" EntitySet="director" />
+    </AssociationSet>
+    <EntitySet Name="pelicula" EntityType="cinemaModel.pelicula" />
+    <AssociationSet Name="FK_PL_DIR" Association="cinemaModel.FK_PL_DIR">
+      <End Role="director" EntitySet="director" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PL_EST" Association="cinemaModel.FK_PL_EST">
+      <End Role="estudio" EntitySet="estudio" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+    <AssociationSet Name="listado_genero" Association="cinemaModel.listado_genero">
+      <End Role="genero" EntitySet="genero" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+    <AssociationSet Name="reparto" Association="cinemaModel.reparto">
+      <End Role="actor" EntitySet="actor" />
+      <End Role="pelicula" EntitySet="pelicula" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="director">
+    <Key>
+      <PropertyRef Name="idDirector" />
+    </Key>
+    <Property Name="idDirector" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idNacionalidad" Type="Int32" />
+    <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="nacionalidad" Relationship="cinemaModel.FK_DIR_NAC" FromRole="director" ToRole="nacionalidad" />
+    <NavigationProperty Name="pelicula" Relationship="cinemaModel.FK_PL_DIR" FromRole="director" ToRole="pelicula" />
+  </EntityType>
+  <Association Name="FK_DIR_NAC">
+    <End Type="cinemaModel.nacionalidad" Role="nacionalidad" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="cinemaModel.director" Role="director" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nacionalidad">
+        <PropertyRef Name="idNacionalidad" />
+      </Principal>
+      <Dependent Role="director">
+        <PropertyRef Name="idNacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="pelicula">
+    <Key>
+      <PropertyRef Name="idPelicula" />
+    </Key>
+    <Property Name="idPelicula" Type="Int32" Nullable="false" />
+    <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaEstreno" Type="DateTime" Precision="0" />
+    <Property Name="idDirector" Type="Int32" />
+    <Property Name="duracion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idioma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="presupuesto" Type="Int32" />
+    <Property Name="idEstudio" Type="Int32" />
+    <NavigationProperty Name="director" Relationship="cinemaModel.FK_PL_DIR" FromRole="pelicula" ToRole="director" />
+    <NavigationProperty Name="estudio" Relationship="cinemaModel.FK_PL_EST" FromRole="pelicula" ToRole="estudio" />
+    <NavigationProperty Name="genero" Relationship="cinemaModel.listado_genero" FromRole="pelicula" ToRole="genero" />
+    <NavigationProperty Name="actor" Relationship="cinemaModel.reparto" FromRole="pelicula" ToRole="actor" />
+  </EntityType>
+  <Association Name="FK_PL_DIR">
+    <End Type="cinemaModel.director" Role="director" Multiplicity="0..1" />
+    <End Type="cinemaModel.pelicula" Role="pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="director">
+        <PropertyRef Name="idDirector" />
+      </Principal>
+      <Dependent Role="pelicula">
+        <PropertyRef Name="idDirector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PL_EST">
+    <End Type="cinemaModel.estudio" Role="estudio" Multiplicity="0..1" />
+    <End Type="cinemaModel.pelicula" Role="pelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estudio">
+        <PropertyRef Name="idEstudio" />
+      </Principal>
+      <Dependent Role="pelicula">
+        <PropertyRef Name="idEstudio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="listado_genero">
+    <End Type="cinemaModel.genero" Role="genero" Multiplicity="*" />
+    <End Type="cinemaModel.pelicula" Role="pelicula" Multiplicity="*" />
+  </Association>
+  <Association Name="reparto">
+    <End Type="cinemaModel.actor" Role="actor" Multiplicity="*" />
+    <End Type="cinemaModel.pelicula" Role="pelicula" Multiplicity="*" />
+  </Association>
+</Schema>

@@ -1,0 +1,63 @@
+﻿body {
+}
+.contenedor-menu {
+    padding: 19px;
+    margin-left: 153px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-menu {
+    box-shadow: 5px 5px 20px grey;
+    position: relative;
+    overflow: hidden;
+    max-width: calc(50% - 60px);
+    margin: 30px;
+    margin-top: 80px;    
+}
+
+
+img {
+    height: 250px;
+    border-radius: 3px;
+}
+
+.titulo {
+    color: white;
+    margin: 0;
+    font-size: 1.5em;
+
+}
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px; /* Ajusta el relleno seg n tus preferencias */
+    background: rgb(107, 107, 107); /* Ajusta la opacidad y el color del fondo seg n tus preferencias */
+    text-align: center;
+}
+
+.card-menu img {
+    display: block;
+    width: 100%;
+}
+.enlace-tarjeta {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+}
+
+.card-menu:hover .tooltip {
+    display: block;
+}
